@@ -1,8 +1,0 @@
----
-title: Data Show - Berkay Soyer
-date: 2017-10-21
----
-
-```{r}
-rmarkdown::render("/Users/berkorbay/git_repositories/datashow/bsoyer/bsoyer_datashow.Rmd",output_format="html_document")
-```
