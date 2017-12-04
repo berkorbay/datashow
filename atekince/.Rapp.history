@@ -1,0 +1,331 @@
+rmarkdown::render("~/Dropbox/Courses_given/Bilgi_IE_231_2017F/Lectures/Lecture_06/In_Class_Activity_w6.Rmd",output_format="html_document")#
+rmarkdown::render("~/Dropbox/Courses_given/Bilgi_IE_231_2017F/Lectures/Lecture_06/In_Class_Activity_w6.Rmd",output_format="pdf_document")
+n_total = 10#
+# Olive bread#
+p_1 = 0.15#
+n_1 = 2#
+# Rye bread#
+p_2 = 0.55#
+n_2 = 5#
+# White bread#
+p_3 = 1 - p_2 - p_1#
+n_3 = 3#
+#
+factorial(n_total)/(factorial(n_1)*factorial(n_2)*factorial(n_3)) * p_1^n_1 * p_2^n_2 * p_3^n_3
+n_total = 32 #N#
+k_total = 8#
+n_1 = 18#
+n_2 = 14#
+k_1 = 4#
+k_2 = 4#
+#
+(choose(n_1,k_1)*choose(n_2,k_2))/choose(n_total,k_total)
+choose(10,3)
+factorial(4)
+rewards <- (7:10)^2#
+probs_rewards <- dbinom(7:10,10,0.6)#
+losses <- -5*(7:10)#
+probs_losses <- dbinom(0:3,10,0.6)#
+#
+expectation <- sum(rewards*probs_rewards) + sum(losses*probs_losses)
+expectation
+ex2<-sum(rewards^2*probs_rewards) + sum(losses^2*probs_losses)#
+ex2 - expectation^2
+ex2
+expectation^2
+80*80
+ex2<-sum(rewards^2*probs_rewards) + sum(losses^2*probs_losses)#
+ex2 - expectation^2
+rmarkdown::render("~/Dropbox/Courses_given/Bilgi_IE_231_2017F/Lectures/Lecture_06/In_Class_Activity_w6_sol.Rmd",output_format="html_document")
+rmarkdown::render("~/Dropbox/Courses_given/Bilgi_IE_231_2017F/Lectures/Lecture_06/In_Class_Activity_w6_sol.Rmd",output_format="html_document")
+rmarkdown::render("~/Dropbox/Courses_given/Bilgi_IE_231_2017F/Lectures/Lecture_06/In_Class_Activity_w6_sol.Rmd",output_format="html_document")
+rmarkdown::render("~/Dropbox/Courses_given/Bilgi_IE_231_2017F/Lectures/Lecture_06/In_Class_Activity_w6_sol.Rmd",output_format="html_document")
+rmarkdown::render("~/Dropbox/Courses_given/Bilgi_IE_231_2017F/Lectures/Lecture_06/In_Class_Activity_w6_sol.Rmd",output_format="html_document")
+rmarkdown::render("~/Dropbox/Courses_given/Bilgi_IE_231_2017F/Lectures/Lecture_06/In_Class_Activity_w6_sol.Rmd",output_format="html_document")
+rmarkdown::render("~/Dropbox/Courses_given/Bilgi_IE_231_2017F/SelfStudy_01/SelfStudy_01.Rmd",output_format="pdf_document")#
+rmarkdown::render("~/Dropbox/Courses_given/Bilgi_IE_231_2017F/SelfStudy_01/SelfStudy_01.Rmd",output_format="pdf_document")
+rmarkdown::render("~/Dropbox/Courses_given/Bilgi_IE_231_2017F/SelfStudy_01/SelfStudy_01.Rmd",output_format="html_document")
+0.75*0.9
+p_s1_1 = (1 - (1-0.75)*(1-0.25)*(1-0.3))
+p_s1_2 = (1-(1-0.5)*(1-0.4))
+p_s1_3 = (1-(1-0.6)*(1-0.7))
+p_s1 = p_s1_1*p_s1_2*p_s1_3
+p_s2 = 0.75*0.9
+(1-p_s1)*(1-p_s2)
+p_s1
+p_s1_1
+0.44*0.32
+(364/365)435
+(364/365)^435
+(364/365)^436
+1-pbirthday(22)
+30*31/2
+(364/365)^465
+22*21/2
+(364/365)^231
+factorial(24)/(factorial(19)*factorial(5))
+aaa<-factorial(24)/(factorial(19)*factorial(5))
+6/42504
+file.choose()
+rmarkdown::render("~/Dropbox/Courses_given/Bilgi_IE_231_2017F/Homeworks/HW1/Group 1 Homework 1.Rmd")
+rmarkdown::render("~/Dropbox/Courses_given/Bilgi_IE_231_2017F/Homeworks/HW1/Group 1 Homework 1.Rmd")
+rmarkdown::render("/Users/berkorbay/Dropbox/Courses_given/Bilgi_IE_231_2017F/Homeworks/HW1/Group 1 Homework 1.Rmd",output_format="html_document")
+n1 <- choose(4,1)+(choose(4,1)*choose(4,1))+(choose(4,1)*choose(4,1)*choose(3,1))
+n2 <- choose(5,1)+(choose(5,1)*choose(4,1))+(choose(5,1)*choose(4,1)*choose(3,1))
+n1+n2
+10*8*choose(16,3)
+choose(18,5)
+16!/(3!13!)
+choose(18,5)
+choose(5,2)
+n_german <- 15#
+n_turkish <- 17#
+n_french <- 18#
+n_total <- n_german + n_turkish + n_french#
+k <- 10#
+#
+c_all <- choose(n_total,k)#
+c_t <- choose(n_turkish,k) #All Turkish#
+c_g <- choose(n_german,k)#
+c_f <- choose(n_french,k)#
+c_tg <- choose(n_turkish + n_german,k) - c_t - c_g # At least 1 German and 1 Turkish#
+c_tf <- choose(n_turkish + n_french,k) - c_t - c_f # At least 1 German and 1 Turkish#
+c_gf <- choose(n_french + n_german,k) - c_f - c_g # At least 1 German and 1 Turkish#
+#
+c_all - c_t - c_g - c_f - c_tg - c_tf - c_gf
+c_all
+- c_t - c_g - c_f - c_tg - c_tf - c_gf
+0.5^4
+0.01*0.19
+(choose(5,2)*choose(6,1))/choose(11,3)
+360/990
+3/365*.75 + 362/365 * .25
+3/365*.75/(3/365*.75 + 362/365 * .25)
+.008.0.75
+.008*0.75
+(3/365*.75 + 362/365 * .25)
+setwd("~/git_repositories/datashow/atekince")
+xmlToDataFrame("atekince_raw_data.xml")
+library(tidyverse) #Tidyverse package#
+library(readxl) #Reading xlsx files#
+library(XML) #Reading XML files#
+library(writexl) #Writing xlsx files#
+library(lubridate) #date/time stuff
+xmlToDataFrame("atekince_raw_data.xml")
+library(xml2)
+read_xml("atekince_raw_data.xml")
+aaa<-read_xml("atekince_raw_data.xml")
+aaa %>% xml_text()
+aaa %>% xml_structure()
+aaa %>% xml_attr("Price")
+aaa %>% xml_attr("ID")
+aaa %>% xml_attr("TRY")
+aaa %>% xml_attr("cac")
+aaa %>% xml_attr("cbc")
+aaa %>% xml_nodes("InvoiceLine")
+aaa %>% xml_node("InvoiceLine")
+aaa %>% xml_name("ID")
+aaa %>% xml_attr("schemeID")
+aaa %>% xml_children()
+aaa %>% xml_children() %>% xml_attr("languageID")
+aaa %>% xml_children() %>% xml_name("cbc:Note")
+aaa %>% xml_children() %>% xml_name("cbc\:Note")
+aaa %>% xml_children() %>% xml_find_all("cbc\:Note")
+aaa %>% xml_children() %>% xml_find_all("cbc:Note")
+aaa %>% xml_children() %>% xml_find_all("cbc")
+aaa %>% xml_children() %>% xml_find_all("UPR")
+?xml_find_all
+aaa %>% xml_children() %>% xml_find_all(".//cbc:Note")
+aaa %>% xml_children() %>% xml_find_all("//cbc:Note")
+aaa %>% xml_find_all("//cbc:Note")
+aaa %>% xml_find_all("//cbc:ID")
+xml_ns
+?xml_ns
+aaa %>% xml_ns()
+aaa %>% xml_find_all("//InvoiceTypeCode")
+aaa %>% xml_find_all("//cbc:InvoiceTypeCode")
+aaa %>% xml_find_all("//cac:InvoiceTypeCode")
+aaa %>% xml_find_all("//cbc:ID")
+aaa %>% xml_find_all("//cbc:Signature")
+aaa %>% xml_find_all("//cac:Signature")
+aaa %>% xml_find_all("//cac:AccountingCustomerParty")
+aaa %>% xml_find_all("//cac:AccountingCustomerParty") %>% xml_children
+aaa %>% xml_find_all("//cac:AccountingCustomerParty") %>% xml_children()
+aaa %>% xml_find_all("//cac:InvoiceLine") %>% xml_children()
+aaa %>% xml_find_all("//cac:InvoiceLine")
+aaa %>% xml_find_all("//cac:LegalMonetaryTotal")
+aaa %>% xml_find_all("//cac:LegalMonetaryTotal") %>% xml_child()
+aaa %>% xml_find_all("//cac:LegalMonetaryTotal") %>% xml_children()
+aaa %>% xml_find_all("//cac:LegalMonetaryTotal") %>% xml_children()
+"x<20"
+as.name("x<20")
+eval(as.name("x<20"))
+x<-15
+eval(as.name("x<20"))
+eval(("x<20"))
+eval(unquote("x<20"))
+eval(parse("x<20"))
+eval(parse(text="x<20"))
+eval(as.name("x"))
+as.formula
+eval(as.formula("x<20"))
+?interp
+::setInternet2
+??setInternet2
+rmarkdown::render("/Users/berkorbay/Dropbox/Courses_given/MEF_BDA_503_2017F/Homeworks/OSYM_Case_Study/osym_case_study.Rmd",output_format="html_document")
+rmarkdown::render("/Users/berkorbay/Dropbox/Courses_given/MEF_BDA_503_2017F/Homeworks/OSYM_Case_Study/osym_case_study.Rmd",output_format="html_document")
+rmarkdown::render("/Users/berkorbay/Dropbox/Courses_given/MEF_BDA_503_2017F/Homeworks/OSYM_Case_Study/osym_case_study.Rmd",output_format="html_document")
+osym_data_2017
+glimpse(osym_data_2017)#
+summary(osym_data_2017)
+osym_data_2017 %>% #
+    transmute(university_id = substr(1,4,program_id), #
+                university_type=substr(1,1,university_id))
+osym_data_2017 %>% #
+    transmute(university_id = substr(1,4,as.character(program_id)))
+osym_data_2017
+osym_data_2017 %>% #
+    rowwise() %>%#
+    transmute(university_id = substr(1,4,as.character(program_id)))
+?substr
+osym_data_2017 %>% #
+    # rowwise() %>%#
+    transmute(university_id = substr(program_id,1,4))
+osym_data_2017 %>% #
+    # rowwise() %>%#
+    transmute(university_id = substr(program_id,1,4), #
+                university_type=substr(university_id,1,1))
+osym_data_2017 %>% #
+    transmute(university_id = substr(program_id,1,4), #Use substr command to get the first 4 digits as university_id#
+              university_type=substr(university_id,1,1)) %>%#
+    filter(university_type %in% c("1","2"))
+osym_data_2017 %>% #
+    transmute(university_id = substr(program_id,1,4), #Use substr command to get the first 4 digits as university_id#
+              university_type=substr(university_id,1,1)) %>%#
+    filter(university_type %in% c("1","2")) %>% sample_n()
+osym_data_2017 %>% #
+    transmute(university_id = substr(program_id,1,4), #Use substr command to get the first 4 digits as university_id#
+              university_type=substr(university_id,1,1)) %>%#
+    filter(university_type %in% c("1","2")) %>% sample_n(10)
+osym_data_2017 %>% #
+    transmute(university_id = substr(program_id,1,4), #Use substr command to get the first 4 digits as university_id#
+              university_type=substr(university_id,1,1)) %>%#
+    filter(university_type %in% c("1","2","3","4")) %>% sample_n(10)
+osym_data_2017 %>%#
+    transmute(university_id = substr(program_id,1,4), #Use substr command to get the first 4 digits as university_id#
+              university_type=substr(university_id,1,1)) %>%#
+    filter(university_type %in% c("1","2")) %>% # Filter according to the desired types#
+    select(program_id,university_id,university_type,everything()) %>% #Reorder using select#
+    tbl_df()
+osym_data_2017 %>%#
+    mutate(university_id = substr(program_id,1,4), #Use substr command to get the first 4 digits as university_id#
+              university_type=substr(university_id,1,1)) %>%#
+    filter(university_type %in% c("1","2")) %>% # Filter according to the desired types#
+    select(program_id,university_id,university_type,everything()) %>% #Reorder using select#
+    tbl_df()
+rmarkdown::render("/Users/berkorbay/Dropbox/Courses_given/MEF_BDA_503_2017F/Homeworks/OSYM_Case_Study/osym_case_study.Rmd",output_format="html_document")
+rmarkdown::render("/Users/berkorbay/Dropbox/Courses_given/MEF_BDA_503_2017F/Homeworks/OSYM_Case_Study/osym_case_study.Rmd",output_format="html_document")
+osym_data_2017 %>%#
+    mutate(university_id = substr(program_id,1,4), #Use substr command to get the first 4 digits as university_id#
+              university_type=substr(university_id,1,1),#
+              faculty_name=gsub("Uyruklu\\)| \\(Tam Burslu\\)","",faculty_name)) %>%#
+    filter(university_type %in% c("1","2")) %>% # Filter according to the desired types#
+    select(program_id,university_id,university_type,everything()) %>% #Reorder using select#
+    tbl_df()
+rmarkdown::render("/Users/berkorbay/Dropbox/Courses_given/MEF_BDA_503_2017F/Homeworks/OSYM_Case_Study/osym_case_study.Rmd",output_format="html_document")
+rmarkdown::render("/Users/berkorbay/Dropbox/Courses_given/MEF_BDA_503_2017F/Homeworks/OSYM_Case_Study/osym_case_study.Rmd",output_format="html_document")
+rmarkdown::render("/Users/berkorbay/Dropbox/Courses_given/MEF_BDA_503_2017F/Homeworks/OSYM_Case_Study/osym_case_study.Rmd",output_format="html_document")
+rmarkdown::render("/Users/berkorbay/Dropbox/Courses_given/MEF_BDA_503_2017F/Homeworks/OSYM_Case_Study/osym_case_study.Rmd",output_format="html_document")
+raw_data %>%#
+    filter(university_name == "MEF Üniversitesi")
+raw_data %>%#
+    filter(university_name == "MEF ÜNİVERSİTESİ")
+mef_data %>%#
+    summarise(#
+        count = n(), #Number of programs#
+        quota = sum(general_quota), # total quota#
+        fill_rate = sum(general_quota)/sum(general_placement) # fill rate#
+        )
+mef_data <-#
+raw_data %>%#
+    filter(university_name == "MEF ÜNİVERSİTESİ")
+mef_data %>%#
+    summarise(#
+        count = n(), #Number of programs#
+        quota = sum(general_quota), # total quota#
+        fill_rate = sum(general_quota)/sum(general_placement) # fill rate#
+        )
+mef_data %>%#
+    summarise(#
+        count = n(), #Number of programs#
+        quota = sum(general_quota), # total quota#
+        fill_rate = sum(general_placement)/sum(general_quota) # fill rate#
+        )
+rmarkdown::render("/Users/berkorbay/Dropbox/Courses_given/MEF_BDA_503_2017F/Homeworks/OSYM_Case_Study/osym_case_study.Rmd",output_format="html_document")
+mef_data %>%#
+    group_by(exam_type) %>%#
+    summarise(#
+        count = n(), #Number of programs#
+        quota = sum(general_quota), # total quota#
+        fill_rate = round(sum(general_placement)/sum(general_quota),2), # fill rate#
+        min_score_min = min(min_score), #Worst program min score #
+        max_score_min = min(max_score), #Worst max score#
+        max_score_max = max(max_score) #Best max score#
+    )
+mef_data
+mef_data %>% #
+    transmute(program_name,placement,empty=general_quota-general_placement) %>% #
+    gather(key,value,-program_name)
+mef_mf4_quota_data <- #
+mef_data %>% #
+    transmute(program_name,general_placement,empty=general_quota-general_placement) %>% #
+    gather(key,value,-program_name)#
+#
+ggplot(mef_mf4_quota_data,aes(x=program_name,y=value,fill=key)) + geom_bar(stat="identity",position="stack")
+ggplot(mef_mf4_quota_data,aes(x=program_name,y=value,fill=key)) + #
+    geom_bar(stat="identity",position="stack") +#
+    theme(legend.position="top", axis.text.x=element_text(angle=90,vjust=1))
+ggplot(mef_mf4_quota_data,aes(x=program_name,y=value,fill=key)) + #
+    geom_bar(stat="identity",position="stack") +#
+    theme(legend.position="top", axis.text.x=element_text(angle=90,hjust=1))
+mef_mf4_quota_data <-#
+mef_data %>%#
+    transmute(program_name,quota=general_quota,placement=general_placement,empty=general_quota-general_placement) %>%#
+    gather(key,value,-program_name,-quota)#
+#
+#Here is a glimpse of the resulting data#
+mef_mf4_quota_data#
+#
+ggplot(mef_mf4_quota_data,aes(x=program_name,y=order(value,levels=quota),fill=key)) +#
+    geom_bar(stat="identity",position="stack") +#
+    theme(legend.position="top", axis.text.x=element_text(angle=90,vjust=1))
+mef_mf4_quota_data <-#
+mef_data %>%#
+    transmute(program_name,quota=general_quota,placement=general_placement,empty=general_quota-general_placement) %>%#
+    gather(key,value,-program_name,-quota) %>%#
+    arrange(desc(quota))#
+#
+#Here is a glimpse of the resulting data#
+mef_mf4_quota_data#
+#
+ggplot(mef_mf4_quota_data,aes(x=program_name,y=order(value,levels=unique(quota)),fill=key)) +#
+    geom_bar(stat="identity",position="stack") +#
+    theme(legend.position="top", axis.text.x=element_text(angle=90,vjust=1))
+mef_mf4_quota_data <-#
+mef_data %>%#
+    transmute(program_name,quota=general_quota,placement=general_placement,empty=general_quota-general_placement) %>%#
+    gather(key,value,-program_name,-quota) %>%#
+    arrange(desc(quota))#
+#
+#Here is a glimpse of the resulting data#
+mef_mf4_quota_data#
+#
+ggplot(mef_mf4_quota_data,aes(x=program_name,y=ordered(value,levels=unique(quota)),fill=key)) +#
+    geom_bar(stat="identity",position="stack") +#
+    theme(legend.position="top", axis.text.x=element_text(angle=90,vjust=1))
+ggplot(mef_mf4_quota_data,aes(x=factor(program_name,levels=unique(quota),y=value),fill=key)) +#
+    geom_bar(stat="identity",position="stack") +#
+    theme(legend.position="top", axis.text.x=element_text(angle=90,vjust=1))
+ggplot(mef_mf4_quota_data,aes(x=factor(program_name,levels=unique(quota)),y=value,fill=key)) +#
+    geom_bar(stat="identity",position="stack") +#
+    theme(legend.position="top", axis.text.x=element_text(angle=90,vjust=1))

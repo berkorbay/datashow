@@ -1,0 +1,172 @@
+---
+title: Data Show - Berkay Soyer
+date: 2017-10-21
+author: Berk Orbay
+---
+
+```{r,echo=FALSE,eval=FALSE}
+rmarkdown::render("/Users/berkorbay/git_repositories/datashow/bsoyer/bsoyer_datashow.Rmd",output_format="html_document")
+```
+
+In this Data Show ([see details](#about-data-show)), we would like to know the employees' contribution to business "streams". Each employee (e.g. employee_1) belongs to a team (e.g. team_1) and works on a feature (e.g. feature_1). Each feature has some contribution to the business streams (e.g. business_stream_1) and that contribution is allocated fractionally to business streams (e.g. a unit of work to feature_4 contributes 0.6, 0.3 and 0.1 to business streams 1, 2 and 3, respectively).
+
+The objective is to find each employee's contribution to business streams and report it in an understandable way. Some of the specific requirements are summarising the data to see each employee's contribution to business streams and filter it by team and month.
+
+# Preparing Packages and Data
+
+First order of business is to install the required packages if they are not already installed.
+
+```{r,eval=FALSE}
+# pti is a vector containing packages that we would like to use
+pti <- c("tidyverse","readxl","writexl","lubridate")
+# let's check against the already installed packages vector
+# and install only missing packages
+pti <- pti[!(pti %in% installed.packages())]
+# install the required packages
+install.packages(pti,repos="https://cran.r-project.org")
+```
+
+Now load those packages to your working environment.
+
+```{r,warnings=FALSE}
+library(tidyverse) #Tidyverse package
+library(readxl) #Reading xlsx files
+library(writexl) #Writing xlsx files
+library(lubridate) #date/time stuff
+```
+
+(Optional) You might want to _set a working directory_ so you won't need to specify folder paths every time.
+
+```{r, eval=FALSE}
+#To learn your current working directory use getwd()
+setwd("~/Documents/datashow_learn/")
+```
+
+Download the data from GitHub or just modify the following command.
+
+```{r,eval=FALSE}
+download.file("https://github.com/berkorbay/datashow/blob/master/bsoyer/datashow_berkaysoyer.xlsx?raw=true",destfile="datashow_berkaysoyer.xlsx")
+```
+
+```{r,eval=FALSE}
+employee_raw <- read_xlsx("datashow_berkaysoyer.xlsx",sheet="Sheet1")
+contribution_raw <- read_xlsx("datashow_berkaysoyer.xlsx",sheet="Sheet2")
+```
+
+Let's check our data. Do you see how tidyverse converts date/time column (`Updated`) to a proper date time format.
+
+```{r}
+glimpse(employee_raw)
+glimpse(contribution_raw)
+```
+
+Do you see the NA value at business_stream_3 column. We will take care of it in a while.
+
+# Analysis
+
+Let's merge them together with the `left_join` function. See [this tutorial](http://stat545.com/bit001_dplyr-cheatsheet.html) for join operations in `dplyr` package (part of tidyverse). But, before that we have a duplicate row in `contribution_raw` data frame. We are going to take care of it.
+
+```{r}
+#Remove the duplicate row
+contribution_raw <- contribution_raw %>% distinct(FeatureKeys,TeamKeys,.keep_all=TRUE)
+#Although each feature is assigned to a separate team let's still join by both features and teams.
+merged_data <- left_join(employee_raw,contribution_raw,by=c("FeatureKeys","TeamKeys"))
+glimpse(merged_data)
+```
+
+Now we have a whole data that we can work in it. Step by step we are going to move forward to our objectives.
+
+Next, make NA's in business streams to 0.
+
+```{r}
+#Let's correct each column starting with business_stream with an ifelse
+#dot (.) symbolises each target column separately (b..stream_1, b..stream_2 etc.)
+merged_data <- merged_data %>% mutate_at(vars(starts_with("business_stream")),funs(ifelse(is.na(.),0,.)))
+#Let's check all columns with summarise_all
+merged_data %>% summarise_all(funs(sum(is.na(.)))) %>% gather() %>% print(n=Inf)
+```
+
+Ok, we are good. Next let's summarise each employee's contribution distribution to business streams. Initially we prepare data for summarization purposes.
+
+```{r}
+summary_raw <-
+merged_data %>%
+    #Get just the required columns
+    select(AssigneeKeys,Updated,starts_with("business_stream")) %>%
+    #Transform to long format but don't include employee ids or datetime
+    gather(bstream,value,-AssigneeKeys,-Updated) %>%
+    #Order the data so we can see each employee's contribution to business streams in time
+    arrange(AssigneeKeys,Updated) %>%
+    #We wanted to see by month so let's get months with lubridate::month function
+    mutate(task_month=month(Updated)) %>%
+    #Group them by employees to get fractional contributions
+    group_by(AssigneeKeys) %>%
+    #Get fractional contributions in each group
+    mutate(value_perc=value/sum(value)) %>%
+    #Ungroup
+    ungroup() %>%
+    #Let's do one more group by so we can plot employee contributions to business streams over time
+    group_by(AssigneeKeys,bstream) %>%
+    mutate(cum_vp=cumsum(value_perc)) %>%
+    ungroup()
+```
+
+We are doing very well.
+
+# Getting Results
+
+Now we are ready for all the objectives.
+
+```{r}
+# Let's get employee contributions
+summary_table<-
+summary_raw %>%
+    #group by employees and business streams
+    group_by(AssigneeKeys,bstream) %>%
+    #get the total of value_percs and round the numbers for convenience
+    summarise(contribution=round(sum(value_perc),3)) %>%
+    #make it into a wide format with spread function
+    spread(key=bstream,value=contribution,fill=0)
+```
+
+If you would like to export it to an xlsx file use `write_excel` function from `writexl` package.
+
+```{r,eval=FALSE}
+write_xlsx(summary_table,path="summary_table.xlsx")
+```
+
+**Bonus:** If you want to do automated reports use `rmarkdown` and `knitr`. Here is a sneak peak. But I am not getting into this.
+
+```{r}
+knitr::kable(summary_table)
+```
+
+All code no plot until this point. Let's cheer up this data show with a plot of an employee's contribution to business streams through time.
+
+```{r,cache=TRUE}
+my_employee<-"employee_1"
+#Prepare your canvas with ggplot command and data as your employee's data
+ggplot(data=summary_raw %>% filter(AssigneeKeys==my_employee)) +
+    #Add a line chart, x axis datetime, y axis cumulative contribution, color groups bstream
+    geom_line(aes(x=Updated,y=cum_vp,color=bstream)) +
+    #Edit titles
+    labs(x="Dates",y="Contribution",title=paste0("Contribution of ",my_employee)) +
+    #Get legend on top and plot title centered
+    theme(legend.position="top",plot.title=element_text(hjust=0.5))
+```
+
+# Conclusion and Future Work
+
+Employee contribution to each business stream within the data period is presented in this data show. We took data from an xlsx file, merged them together, modified into desired format, got the summary table, presented it and plotted an/any employee's contribution through time. For further tasks
+
++ To add month, in `summary_raw` calculations, add `month` to first `group_by` function.
++ To add teams, either include it in the first `select` or do join operation later.
+
+Some comments about the data: This data set did not put a number on the contributions to tasks. Sheet1 only says that a feature is updated by an employee at a certain time, so each row is assumed equal contribution. Sheet2 says each contribution to a feature is distributed to business streams. Some distributions do not sum up to 1 (see feature_7,team_1). Also desired table displayed at sheet "metod ve ornek" explains an employees contribution distribution to business streams, not absolute contributions.
+
+
+# About Data Show
+
+Data Show is a practice to help people get into **R** and **tidyverse** quickly, by solving one of their problems with a tidyverse centered methodology. Reproducibility is the key for Data Show. Each step is carefully documented and explained, so that tracking it would be easy. In this Data Show, one of my students at [MEF U. - BDA 503](http://mef-bda503.github.io/) course brought a data set and gave specifications which are translated into Data Show objectives.
+
+You can contact me at [LinkedIn](https://www.linkedin.com/in/berkorbay) for a Data Show. Data Show is absolutely free and limited to my spare time. Also, contact me please if you know your way around R and you would like to do help other people with a Data Show.

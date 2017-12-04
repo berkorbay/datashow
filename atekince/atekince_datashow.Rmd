@@ -1,0 +1,70 @@
+---
+title: Data Show - Ahmetcan Tekince
+date: 2017-10-29
+author: Berk Orbay
+---
+
+```{r,echo=FALSE,eval=FALSE}
+rmarkdown::render("/Users/berkorbay/git_repositories/datashow/bsoyer/bsoyer_datashow.Rmd",output_format="html_document")
+```
+
+In this Data Show ([see details](#about-data-show)), we would like to know the employees' contribution to business "streams". Each employee (e.g. employee_1) belongs to a team (e.g. team_1) and works on a feature (e.g. feature_1). Each feature has some contribution to the business streams (e.g. business_stream_1) and that contribution is allocated fractionally to business streams (e.g. a unit of work to feature_4 contributes 0.6, 0.3 and 0.1 to business streams 1, 2 and 3, respectively).
+
+The objective is to find each employee's contribution to business streams and report it in an understandable way. Some of the specific requirements are summarising the data to see each employee's contribution to business streams and filter it by team and month.
+
+# Preparing Packages and Data
+
+First order of business is to install the required packages if they are not already installed.
+
+```{r,eval=FALSE}
+# pti is a vector containing packages that we would like to use
+pti <- c("tidyverse","XML","readxl","writexl","lubridate")
+# let's check against the already installed packages vector
+# and install only missing packages
+pti <- pti[!(pti %in% installed.packages())]
+# install the required packages
+install.packages(pti,repos="https://cran.r-project.org")
+```
+
+Now load those packages to your working environment.
+
+```{r,warnings=FALSE}
+library(tidyverse) #Tidyverse package
+library(readxl) #Reading xlsx files
+library(XML) #Reading XML files
+library(writexl) #Writing xlsx files
+library(lubridate) #date/time stuff
+```
+
+(Optional) You might want to _set a working directory_ so you won't need to specify folder paths every time.
+
+```{r, eval=FALSE}
+#To learn your current working directory use getwd()
+setwd("~/Documents/datashow_learn/")
+```
+
+Download the data from GitHub or just modify the following command.
+
+```{r,eval=FALSE}
+download.file("https://github.com/berkorbay/datashow/blob/master/bsoyer/datashow_berkaysoyer.xlsx?raw=true",destfile="datashow_berkaysoyer.xlsx")
+```
+
+```{r}
+xmlToDataFrame("atekince_raw_data.xml")
+```
+
+# Conclusion and Future Work
+
+Employee contribution to each business stream within the data period is presented in this data show. We took data from an xlsx file, merged them together, modified into desired format, got the summary table, presented it and plotted an/any employee's contribution through time. For further tasks
+
++ To add month, in `summary_raw` calculations, add `month` to first `group_by` function.
++ To add teams, either include it in the first `select` or do join operation later.
+
+Some comments about the data: This data set did not put a number on the contributions to tasks. Sheet1 only says that a feature is updated by an employee at a certain time, so each row is assumed equal contribution. Sheet2 says each contribution to a feature is distributed to business streams. Some distributions do not sum up to 1 (see feature_7,team_1). Also desired table displayed at sheet "metod ve ornek" explains an employees contribution distribution to business streams, not absolute contributions.
+
+
+# About Data Show
+
+Data Show is a practice to help people get into **R** and **tidyverse** quickly, by solving one of their problems with a tidyverse centered methodology. Reproducibility is the key for Data Show. Each step is carefully documented and explained, so that tracking it would be easy. In this Data Show, one of my students at [MEF U. - BDA 503](http://mef-bda503.github.io/) course brought a data set and gave specifications which are translated into Data Show objectives.
+
+You can contact me at [LinkedIn](https://www.linkedin.com/in/berkorbay) for a Data Show. Data Show is absolutely free and limited to my spare time. Also, contact me please if you know your way around R and you would like to do help other people with a Data Show.
